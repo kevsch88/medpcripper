@@ -1,8 +1,10 @@
 import csv
 import os
-import time
+import shutil
 
-i = 0
+
+i = 0
+
 # This function below does the actual raw ripping of the data from the med-pc file based on the arg1 component which is the filename of the medpcfile
 def rip(arg1):
     filen = open(arg1, 'rb')
@@ -14,26 +16,38 @@ def rip(arg1):
         table[i] = filter(None, ttable[i])   ##### MEDPC outputs their files to a fked up format that isn't quite tab delim or space delim. This cleans up all the empty cells produced by reading it from the csv module.
         i += 1
     return ttable
-
+
+
 #this function below will search the current and sub-directories for any .Subject X files that you specify in the list below.
-filelist = []
+filelist = []
+
 ######### Modify below #############
-subjects = ['Subject 92','Subject 101','Subject 106','Subject 114','Subject 117','Subject 130','Subject 132','Subject 133','Subject 141','Subject 144']
-######### Modify above #############
+subjects = ['Subject 92','Subject 101','Subject 106','Subject 114','Subject 117','Subject 130','Subject 132','Subject 133','Subject 141','Subject 144']
+
+######### Modify above #############
+
 for root, dirs, files in os.walk(".", topdown=True):
     for name in files:
         for subnum in subjects:
             if name.split('.', 1)[-1] == subnum:
                 i += 1
                 print(i)
-                filelist.append(name)
-
-######### This is the fun part. Data from each file is put into a list of lists called 'table'. Table will look something like a excel sheet in which
-######### each component of the medpc ripped sheet can be accessed with table[row][column] command. It may help to run the rip function independently in IDLE by 
-######### defining the function (copy and paste it into idle. Then run rip('your-medpcfile') with the ' on each side.
-
-######### What the script below does is run the rip against every file with your subject criteria in the current directory (run the fileripper.py in your
-######### data directory)
+                filelist.append(name)
+
+
+
+######### This is the fun part. Data from each file is put into a list of lists called 'table'. Table will look something like a excel sheet in which
+
+######### each component of the medpc ripped sheet can be accessed with table[row][column] command. It may help to run the rip function independently in IDLE by 
+
+######### defining the function (copy and paste it into idle. Then run rip('your-medpcfile') with the ' on each side.
+
+
+
+######### What the script below does is run the rip against every file with your subject criteria in the current directory (run the fileripper.py in your
+
+######### data directory)
+
 ######### 
 table = []
 for filename in filelist:
@@ -43,3 +57,9 @@ for filename in filelist:
     a = csv.writer(b)
     a.writerows([listt])
     b.close()
+
+
+#####Copy files to old data directory in the folder below current directory/DataOld
+destination = "../DataOld"
+for files in filelist:
+    shutil.move(files, destination)
