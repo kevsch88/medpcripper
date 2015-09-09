@@ -69,6 +69,6 @@ for filename in filelist:
 
 
 #####Copy files to old data directory in the folder below current directory/DataOld
-destination = "../DataOld" ## Destination of files once they are ripped
+destination = "./DataOld" ## (MAKE SURE DIR EXISTS) Destination of files once they are ripped 
 for files in filelist:
     shutil.move(files, destination)
