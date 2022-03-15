@@ -8,7 +8,7 @@ import sys
 # i is the iteration for later functions, don't worry about it I suck at programming
 i = 0
 # specifies the path location of your medpc .subject # files. If you run fileripper.py in the directory of the files you will not need to change the "./" path already specified
-path = "Z:\Golden_Lab_Users\Schneider_Kevin\oCSDS\Data\oCSDS_SABV\medfiles\SocialSA"
+path = "./"
 ######### Modify below #############
 # below specifies which subjects you want to take data from
 subjects = ['C1', 'C2', 'C3', 'C4']
